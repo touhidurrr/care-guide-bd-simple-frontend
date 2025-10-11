@@ -1,0 +1,31 @@
+{
+  "name": "care-guide-bd-simple-frontend",
+  "version": "1.0.0",
+  "description": "A simple frontend made for Care Guide BD interview process",
+  "homepage": "https://github.com/touhidurrr/care-guide-bd-simple-frontend#readme",
+  "bugs": {
+    "url": "https://github.com/touhidurrr/care-guide-bd-simple-frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touhidurrr/care-guide-bd-simple-frontend.git"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Md. Touhidur Rahman",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start"
+  },
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "next": "15.5.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.14",
+    "tailwindcss": "^4.1.14"
+  }
+}
