@@ -14,9 +14,9 @@
   "author": "Md. Touhidur Rahman",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start -p 4040 -H ::1",
+    "dev": "next dev --turbopack -p 4040 -H ::1",
     "format": "prettier --write src"
   },
   "dependencies": {
