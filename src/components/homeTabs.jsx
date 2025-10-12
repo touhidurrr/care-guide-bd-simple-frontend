@@ -113,9 +113,18 @@ export function HomeTabs() {
                       <h3 className="text-lg font-semibold mb-1">
                         {post.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-3">
+                      <p className="text-sm text-muted-foreground line-clamp-3 mb-2">
                         {post.content}
                       </p>
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>By: {post.username}</span>
+                        <span>
+                          {new Date(post.createdAt).toLocaleString(undefined, {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                          })}
+                        </span>
+                      </div>
                     </div>
                   ))
                 ) : (
