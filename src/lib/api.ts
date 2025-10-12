@@ -63,7 +63,7 @@ export const getUsers = async () => {
 
 export const restartServer = async () => {
   try {
-    const response = await api.post("/restart");
+    const response = await api.get("/restart");
     return response.data;
   } catch (error) {
     throw error?.response?.data;
