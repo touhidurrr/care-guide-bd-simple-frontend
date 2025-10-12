@@ -7,12 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  release:
     defaults:
       run:
         shell: bash
 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -37,5 +40,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.sha }}
-          files: |
-            frontend.zip
+          files: frontend.zip
