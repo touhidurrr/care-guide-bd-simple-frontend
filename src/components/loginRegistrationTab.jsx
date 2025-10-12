@@ -16,7 +16,7 @@ import { logIn, register } from "@/lib/api";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-export function LoginRegistrationTabs({ cookies }) {
+export function LoginRegistrationTabs() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -56,13 +56,11 @@ export function LoginRegistrationTabs({ cookies }) {
             <CardFooter>
               <Button
                 onClick={() =>
-                  logIn(usernameOrEmail, password)
-                    .then(({ token, admin }) => {
-                      cookies.set("token", token);
-                      cookies.set("admin", admin);
-                      redirect("/");
-                    })
-                    .catch((err) => {})
+                  logIn(usernameOrEmail, password).then(({ token, admin }) => {
+                    Cookies.set("token", token);
+                    Cookies.set("admin", admin);
+                    redirect("/");
+                  })
                 }
               >
                 Login
@@ -109,9 +107,13 @@ export function LoginRegistrationTabs({ cookies }) {
             <CardFooter>
               <Button
                 onClick={() =>
-                  register(username, name, email, password)
-                    .then((res) => {})
-                    .catch((err) => {})
+                  register(username, name, email, password).then(
+                    ({ token, admin }) => {
+                      Cookies.set("token", token);
+                      Cookies.set("admin", admin);
+                      redirect("/");
+                    },
+                  )
                 }
               >
                 Register

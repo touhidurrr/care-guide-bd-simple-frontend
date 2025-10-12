@@ -16,7 +16,7 @@ import { getPosts, register } from "@/lib/api";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-export function HomeTabs({ cookies }) {
+export function HomeTabs() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   return (
