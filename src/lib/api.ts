@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
   // baseURL: 'https://care-guide.touhidur.dev/api',
-  baseURL: 'http://localhost:4041',
+  baseURL: "http://localhost:4041",
 });
 
 export const logIn = async (usernameOrEmail, password) => {
   try {
-    const response = await api.post('/login', {
+    const response = await api.post("/login", {
       usernameOrEmail,
       password,
     });
@@ -19,7 +19,7 @@ export const logIn = async (usernameOrEmail, password) => {
 
 export const register = async (username, name, email, password) => {
   try {
-    const response = await api.post('/register', {
+    const response = await api.post("/register", {
       name,
       username,
       email,
@@ -31,20 +31,18 @@ export const register = async (username, name, email, password) => {
   }
 };
 
-
 export const getPosts = async () => {
   try {
-    const response = await api.get('/posts');
+    const response = await api.get("/posts");
     return response.data;
   } catch (error) {
     throw error?.response?.data;
   }
 };
 
-
 export const uploadPost = async (title, content) => {
   try {
-    const response = await api.post('/posts', {
+    const response = await api.post("/posts", {
       title,
       content,
     });
@@ -56,9 +54,9 @@ export const uploadPost = async (title, content) => {
 
 export const restartServer = async () => {
   try {
-    const response = await api.post('/restart');
+    const response = await api.post("/restart");
     return response.data;
   } catch (error) {
     throw error?.response?.data;
   }
-}
+};
