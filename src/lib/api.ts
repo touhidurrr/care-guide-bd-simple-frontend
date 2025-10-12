@@ -3,6 +3,7 @@ import axios from "axios";
 const api = axios.create({
   // baseURL: 'https://care-guide.touhidur.dev/api',
   baseURL: "http://localhost:4041",
+  withCredentials: true,
 });
 
 export const logIn = async (usernameOrEmail, password) => {

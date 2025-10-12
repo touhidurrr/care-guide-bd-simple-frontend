@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,15 +12,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { register, logIn } from "@/lib/api";
+import { logIn, register } from "@/lib/api";
 import { redirect } from "next/navigation";
+import { useState } from "react";
 
-export function LoginRegistrationTabs() {
+export function LoginRegistrationTabs({ cookies }) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
+
   return (
     <div className="flex w-full max-w-sm flex-col gap-6">
       <Tabs defaultValue="login">
@@ -55,8 +56,12 @@ export function LoginRegistrationTabs() {
             <CardFooter>
               <Button
                 onClick={() =>
-                  logIn({ usernameOrEmail, password })
-                    .then(() => redirect("/"))
+                  logIn(usernameOrEmail, password)
+                    .then(({ token, admin }) => {
+                      cookies.set("token", token);
+                      cookies.set("admin", admin);
+                      redirect("/");
+                    })
                     .catch((err) => {})
                 }
               >
@@ -104,7 +109,7 @@ export function LoginRegistrationTabs() {
             <CardFooter>
               <Button
                 onClick={() =>
-                  register({ name, username, email, password })
+                  register(username, name, email, password)
                     .then((res) => {})
                     .catch((err) => {})
                 }
