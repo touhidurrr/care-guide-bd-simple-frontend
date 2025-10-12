@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getPosts, register } from "@/lib/api";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export function HomeTabs() {
   const [title, setTitle] = useState("");

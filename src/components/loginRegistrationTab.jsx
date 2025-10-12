@@ -13,7 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { logIn, register } from "@/lib/api";
-import { redirect } from "next/navigation";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function LoginRegistrationTabs() {
@@ -22,6 +23,8 @@ export function LoginRegistrationTabs() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
+
+  const router = useRouter();
 
   return (
     <div className="flex w-full max-w-sm flex-col gap-6">
@@ -59,7 +62,7 @@ export function LoginRegistrationTabs() {
                   logIn(usernameOrEmail, password).then(({ token, admin }) => {
                     Cookies.set("token", token);
                     Cookies.set("admin", admin);
-                    redirect("/");
+                    router.refresh();
                   })
                 }
               >
@@ -111,7 +114,7 @@ export function LoginRegistrationTabs() {
                     ({ token, admin }) => {
                       Cookies.set("token", token);
                       Cookies.set("admin", admin);
-                      redirect("/");
+                      router.refresh();
                     },
                   )
                 }
