@@ -31,7 +31,7 @@ jobs:
         run: npm run build
 
       - name: Zip
-        run: zip -r frontend.zip build
+        run: zip -r frontend.zip out
 
       - name: Release
         uses: softprops/action-gh-release@v2
