@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { addPost, getPosts, getUsers } from "@/lib/api";
+import { addPost, getPosts, getUsers, restartServer } from "@/lib/api";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -38,7 +38,7 @@ export function HomeTabs() {
       <Tabs defaultValue="posts">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>
-          {isAdmin && <TabsTrigger value="users">Users</TabsTrigger>}
+          {isAdmin && <TabsTrigger value="admin">Admin</TabsTrigger>}
         </TabsList>
 
         <TabsContent value="posts">
@@ -129,7 +129,7 @@ export function HomeTabs() {
         </TabsContent>
 
         {isAdmin && (
-          <TabsContent value="users">
+          <TabsContent value="admin">
             <Card className="shadow-md border border-gray-200">
               <CardHeader>
                 <CardTitle>All Users</CardTitle>
@@ -138,6 +138,24 @@ export function HomeTabs() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4">
+                {/* Restart Server Button */}
+                <div className="flex flex-col gap-2">
+                  <Button
+                    className="bg-red-600 hover:bg-red-700 text-white"
+                    onClick={() =>
+                      restartServer()
+                        .then(() => alert(`Server restarted:\n${result}`))
+                        .catch((err) => {
+                          console.error(err);
+                          alert("Failed to restart server.");
+                        })
+                    }
+                  >
+                    Restart Server
+                  </Button>
+                </div>
+
+                {/* Users list */}
                 {users.length > 0 ? (
                   users.map((user, i) => (
                     <div
