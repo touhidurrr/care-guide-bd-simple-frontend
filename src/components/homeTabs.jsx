@@ -5,28 +5,42 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getPosts, register } from "@/lib/api";
-import { redirect } from "next/navigation";
-import { useState } from "react";
+import { addPost, getPosts, getUsers } from "@/lib/api";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function HomeTabs() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsAdmin(Cookies.get("admin") === "true");
+    getPosts().then(setPosts);
+  }, []);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    getUsers().then(setUsers);
+  }, [isAdmin]);
+
   return (
     <div className="flex w-full max-w-sm flex-col gap-6">
-      <Tabs defaultValue="login">
+      <Tabs defaultValue="posts">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
+          {isAdmin && <TabsTrigger value="users">Users</TabsTrigger>}
         </TabsList>
+
         <TabsContent value="posts">
           <Card className="shadow-md border border-gray-200">
             <CardHeader>
@@ -41,8 +55,8 @@ export function HomeTabs() {
                 onSubmit={async (e) => {
                   e.preventDefault();
                   try {
-                    await createPost(postTitle, postContent);
-                    redirect("/");
+                    await addPost(title, content);
+                    router.refresh();
                   } catch (err) {
                     console.error("Failed to create post:", err);
                   }
@@ -90,8 +104,8 @@ export function HomeTabs() {
               </form>
 
               <div className="grid gap-4">
-                {getPosts().length > 0 ? (
-                  getPosts().map((post, i) => (
+                {posts.length > 0 ? (
+                  posts.map((post, i) => (
                     <div
                       key={i}
                       className="p-4 rounded-xl border hover:shadow-sm transition-all duration-200"
@@ -114,55 +128,42 @@ export function HomeTabs() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>Register</CardTitle>
-              <CardDescription>Create a new account.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" onChange={(e) => setName(e.target.value)} />
-              </div>
-
-              <div className="grid gap-3">
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  id="username"
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button
-                onClick={() =>
-                  register(username, name, email, password)
-                    .then((res) => {})
-                    .catch((err) => {})
-                }
-              >
-                Register
-              </Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
+        {isAdmin && (
+          <TabsContent value="users">
+            <Card className="shadow-md border border-gray-200">
+              <CardHeader>
+                <CardTitle>All Users</CardTitle>
+                <CardDescription>
+                  Manage registered users (admin only).
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-4">
+                {users.length > 0 ? (
+                  users.map((user, i) => (
+                    <div
+                      key={i}
+                      className="p-3 rounded-md border bg-gray-50 flex justify-between items-center"
+                    >
+                      <div>
+                        <p className="font-medium">{user.username}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                      <span className="text-xs text-gray-500">
+                        {user.admin ? "admin" : "user"}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No users found.
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );
