@@ -144,7 +144,7 @@ export function HomeTabs() {
                     className="bg-red-600 hover:bg-red-700 text-white"
                     onClick={() =>
                       restartServer()
-                        .then(() => alert(`Server restarted:\n${result}`))
+                        .then((result) => alert(`Server restarted:\n${result}`))
                         .catch((err) => {
                           console.error(err);
                           alert("Failed to restart server.");
