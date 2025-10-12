@@ -59,11 +59,7 @@ export function LoginRegistrationTabs() {
             <CardFooter>
               <Button
                 onClick={() =>
-                  logIn(usernameOrEmail, password).then(({ token, admin }) => {
-                    Cookies.set("token", token);
-                    Cookies.set("admin", admin);
-                    router.refresh();
-                  })
+                  logIn(usernameOrEmail, password).then(() => router.refresh())
                 }
               >
                 Login
@@ -110,12 +106,8 @@ export function LoginRegistrationTabs() {
             <CardFooter>
               <Button
                 onClick={() =>
-                  register(username, name, email, password).then(
-                    ({ token, admin }) => {
-                      Cookies.set("token", token);
-                      Cookies.set("admin", admin);
-                      router.refresh();
-                    },
+                  register(username, name, email, password).then(() =>
+                    router.refresh(),
                   )
                 }
               >

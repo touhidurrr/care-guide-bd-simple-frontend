@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: 'https://care-guide.touhidur.dev/api',
-  baseURL: "http://[::1]:4041",
+  baseURL: "https://care-guide.touhidur.dev/api",
   withCredentials: true,
 });
 
