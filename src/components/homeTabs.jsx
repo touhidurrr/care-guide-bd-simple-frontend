@@ -147,7 +147,9 @@ export function HomeTabs() {
                         .then((result) => alert(`Server restarted:\n${result}`))
                         .catch((err) => {
                           console.error(err);
-                          alert("Failed to restart server.");
+                          alert(
+                            `Failed to restart server. Error: ${err.message}`,
+                          );
                         })
                     }
                   >
