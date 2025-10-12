@@ -7,25 +7,25 @@ const api = axios.create({
 
 export const logIn = async (usernameOrEmail, password) => {
   try {
-    const response = await api.post("/login", {
+    const { data } = await api.post("/login", {
       usernameOrEmail,
       password,
     });
-    return response.data;
-  } catch (error) {
-    throw error?.response?.data;
+    return data;
+  } catch (err) {
+    throw err?.response?.data;
   }
 };
 
 export const register = async (username, name, email, password) => {
   try {
-    const response = await api.post("/register", {
+    const { data } = await api.post("/register", {
       name,
       username,
       email,
       password,
     });
-    return response.data;
+    return data;
   } catch (error) {
     throw error?.response?.data;
   }
@@ -33,8 +33,8 @@ export const register = async (username, name, email, password) => {
 
 export const getPosts = async () => {
   try {
-    const response = await api.get("/posts");
-    return response.data;
+    const { data } = await api.get("/posts");
+    return data;
   } catch (error) {
     throw error?.response?.data;
   }
@@ -42,11 +42,8 @@ export const getPosts = async () => {
 
 export const addPost = async (title, content) => {
   try {
-    const response = await api.post("/posts", {
-      title,
-      content,
-    });
-    return response.data;
+    const { data } = await api.post("/posts", { title, content });
+    return data;
   } catch (error) {
     throw error?.response?.data;
   }
@@ -54,8 +51,8 @@ export const addPost = async (title, content) => {
 
 export const getUsers = async () => {
   try {
-    const response = await api.get("/users");
-    return response.data;
+    const { data } = await api.get("/users");
+    return data;
   } catch (error) {
     throw error?.response?.data;
   }
@@ -63,8 +60,8 @@ export const getUsers = async () => {
 
 export const restartServer = async () => {
   try {
-    const response = await api.get("/restart");
-    return response.data;
+    const { data } = await api.get("/restart");
+    return data;
   } catch (error) {
     throw error?.response?.data;
   }
