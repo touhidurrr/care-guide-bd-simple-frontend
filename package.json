@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start -p 4040",
+    "start": "next start -p 4040 -H ::1",
     "format": "prettier --write src"
   },
   "dependencies": {
