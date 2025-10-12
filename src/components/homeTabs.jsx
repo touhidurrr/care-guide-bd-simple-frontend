@@ -183,6 +183,16 @@ export function HomeTabs() {
           </TabsContent>
         )}
       </Tabs>
+
+      <Button
+        onClick={() => {
+          Cookies.remove("token");
+          Cookies.remove("admin");
+          router.refresh();
+        }}
+      >
+        Logout
+      </Button>
     </div>
   );
 }
