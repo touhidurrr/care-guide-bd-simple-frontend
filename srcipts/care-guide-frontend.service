@@ -1,0 +1,15 @@
+[Unit]
+Description=Care Guide Frontend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=npm run start
+Restart=always
+RestartSec=1
+User=care-guide
+# replace `/path/to/Frontend` with server repo path
+WorkingDirectory=/path/to/Frontend
+
+[Install]
+WantedBy=multi-user.target
