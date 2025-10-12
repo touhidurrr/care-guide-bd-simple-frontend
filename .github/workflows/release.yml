@@ -24,6 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
+          cache: npm
           node-version: 22
           check-latest: true
 
@@ -36,8 +37,11 @@ jobs:
       - name: Zip
         run: zip -r frontend.zip out
 
+      - name: Set timestamp tag
+        run: echo "TAG=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.sha }}
+          tag_name: ${{ env.TAG }}
           files: frontend.zip
