@@ -28,7 +28,7 @@
     "jotai": "^2.15.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.545.0",
-    "next": "15.5.4",
+    "next": "15.5.8",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "tailwind-merge": "^3.3.1"
