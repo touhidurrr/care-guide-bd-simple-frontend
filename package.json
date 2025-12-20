@@ -1,6 +1,6 @@
 {
   "name": "care-guide-bd-simple-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple frontend made for Care Guide BD interview process",
   "homepage": "https://github.com/touhidurrr/care-guide-bd-simple-frontend#readme",
   "bugs": {
@@ -28,7 +28,7 @@
     "jotai": "^2.16.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.562.0",
-    "next": "^15.5.10",
+    "next": "^15.5.9",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "tailwind-merge": "^3.4.0"
